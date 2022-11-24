@@ -94,13 +94,14 @@ export class ECONode {
     this.isSelected = false;
   }
 
-  _getLevel() {
-    if (this.nodeParent.id == -1) {
-      return 0;
-    } else return this.nodeParent._getLevel() + 1;
-  }
+  // _getLevel() {
+  //   if (this.nodeParent.id == -1) {
+  //     return 0;
+  //   } else return this.nodeParent._getLevel() + 1;
+  // }
 
   _isAncestorCollapsed() {
+    
     if (this.nodeParent.isCollapsed) {
       return true;
     } else {
@@ -331,9 +332,10 @@ export class ECOTree {
           leftSibling.prelim +
           tree._getNodeSize(leftSibling) +
           tree.config.iSiblingSeparation;
-          console.log(node.prelim)
-          console.log(node.data.id)
-          console.log(leftSibling)
+          // console.log(node.prelim)
+          // console.log(node.data.id)
+          // console.log(tree._getNodeSize(leftSibling))
+          // console.log(leftSibling)
         }
       else node.prelim = 0;
     } else {
@@ -539,25 +541,6 @@ export class ECOTree {
 
   UpdateTree() {
     this._positionTree();
-    this.config = {
-      iMaxDepth: 100,
-      iLevelSeparation: 40,
-      iSiblingSeparation: -40,
-      iSubtreeSeparation: 80,
-
-      topXAdjustment: 0,
-      topYAdjustment: 0,
-      linkType: "B",
-      nodeColor: "#333",
-      nodeBorderColor: "white",
-      nodeSelColor: "#FFFFCC",
-      useTarget: true,
-      searchMode: Search.SM_DSC,
-      selectMode: Select.SL_MULTIPLE,
-      defaultNodeWidth: 80,
-      defaultNodeHeight: 40,
-    };
-
     this.width = Math.max(...this.nDatabaseNodes.map(x => x.XPosition + x.w));
     this.height = Math.max(...this.nDatabaseNodes.map(x => x.YPosition + x.h));
   }
