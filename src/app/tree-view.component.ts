@@ -1,5 +1,5 @@
 import { Component, Input,TemplateRef } from '@angular/core';
-import { ECOTree,ECONode,Orientation,Aligment,Search,Select } from "./econode";
+import { ECOTree,ECONode,Search,Select } from "./econode";
 
 
 @Component({
@@ -28,9 +28,24 @@ import { ECOTree,ECONode,Orientation,Aligment,Search,Select } from "./econode";
 })
 export class TreeViewComponent  {
 
+  expand:boolean = false;
+  hasChildren(node){
+    if(node.nodeChildren.length == 0){
+      return false;
+    }
+    else{
+      return true;
+    }
+  }
+  onClick(node:any,tree:ECOTree){
+    console.log(node)
+    this.expand = !this.expand;
+    tree.config.iSiblingSeparation = -40;
+    console.log(tree.config.iSiblingSeparation)
+  }
   @Input() template: TemplateRef<any>;
   @Input() set data(value){
-     this.tree=new ECOTree();
+    //  this.tree=new ECOTree();
      this.addNodes(this.tree,value)
      this.tree.UpdateTree();
   }
@@ -45,29 +60,30 @@ export class TreeViewComponent  {
   }
   tree:ECOTree=new ECOTree();
 
-  getChildren(node:ECONode,nodes:ECONode[]=[])
-  {
-     const children=node.nodeChildren;
-     if (children && children.length){
-        nodes=[...nodes,...children]
-        children.forEach(x=>{
-          nodes=this.getChildren(x,nodes)
-        })
-     }
-     return nodes
-  }
-  getParent(node:ECONode,nodes:ECONode[]=[])
-  {
-     if (node.nodeParent){
-        nodes=[...nodes,node.nodeParent]
-        nodes=this.getParent(node.nodeParent,nodes)
-     }
-     return nodes
-  }
+  // getChildren(node:ECONode,nodes:ECONode[]=[])
+  // {
+  //    const children=node.nodeChildren;
+  //    if (children && children.length){
+  //       nodes=[...nodes,...children]
+  //       children.forEach(x=>{
+  //         nodes=this.getChildren(x,nodes)
+  //       })
+  //    }
+  //    return nodes
+  // }
+  // getParent(node:ECONode,nodes:ECONode[]=[])
+  // {
+  //    if (node.nodeParent){
+  //       nodes=[...nodes,node.nodeParent]
+  //       nodes=this.getParent(node.nodeParent,nodes)
+  //    }
+  //    return nodes
+  // }
 
-  getSlibingNodes(node:ECONode){
-     return [...this.getParent(node),...this.getChildren(node)]
-  }
+  // getSlibingNodes(node:ECONode){
+  //   console.log([...this.getChildren(node)])
+  //    return [...this.getParent(node),...this.getChildren(node)]
+  // }
 
   private addNodes(tree:ECOTree,node:any,parent:any=null)
   {

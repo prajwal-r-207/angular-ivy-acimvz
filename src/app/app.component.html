@@ -1,4 +1,4 @@
-<div>
+<!-- <div>
   Link type
   <select [(ngModel)]="treeView.config.linkType">
     <option value="L">Lines</option>
@@ -6,24 +6,17 @@
     <option value="M">Cross</option>
   </select>
 </div>
-<div>
-  Orientation
-  <select
-    [ngModel]="treeView.config.iRootOrientation"
-    (ngModelChange)="treeView.config.iRootOrientation=$event;treeView.update()"
-  >
-    <option [ngValue]="Orientation.RO_TOP">Top</option>
-    <option [ngValue]="Orientation.RO_BOTTOM">Bottom</option>
-    <option [ngValue]="Orientation.RO_RIGHT">Rigth</option>
-    <option [ngValue]="Orientation.RO_LEFT">Left</option>
-  </select>
-</div>
-
-<tree-view #treeView [data]="data" [template]="treeTemplate" > 
+<div> -->
+<ng-container *ngFor="let data of dataArray">
+<tree-view #treeView [data]="data"  > 
 
 </tree-view>
-<ng-template #treeTemplate let-node>
-  <div class="item" (click)="selectSlibingNodes(treeView,node)" [ngStyle]="node.isSelected?{'background-color':node.bc,color:node.c}:null">
+</ng-container>
+<!-- <tree-view #treeView [data]="data2"  > 
+
+</tree-view> -->
+<!-- <ng-template #treeTemplate let-node>
+  <div class="item" (click)="selectSlibingNodes(treeView2,node)" [ngStyle]="node.isSelected?{'background-color':node.bc,color:node.c}:null">
   {{node.data.id}}
   </div>
-</ng-template>
+</ng-template> -->

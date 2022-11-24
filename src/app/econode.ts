@@ -15,17 +15,7 @@ export interface IECONode
   selected?:boolean;
 }
 
-export enum Orientation {
-  RO_TOP,
-  RO_BOTTOM,
-  RO_RIGHT,
-  RO_LEFT
-}
-export enum Aligment {
-  NJ_TOP,
-  NJ_CENTER,
-  NJ_BOTTOM
-}
+
 export enum Fill {
   NF_GRADIENT,
   NF_FLAT
@@ -187,124 +177,48 @@ export class ECONode {
       yd = 0;
     let node1 = null;
 
-    switch (tree.config.iRootOrientation) {
-      case Orientation.RO_TOP:
-        xa = this.XPosition + this.w / 2;
-        ya = this.YPosition + this.h;
-        break;
 
-      case Orientation.RO_BOTTOM:
-        xa = this.XPosition + this.w / 2;
-        ya = this.YPosition;
-        break;
-
-      case Orientation.RO_RIGHT:
-        xa = this.XPosition;
-        ya = this.YPosition + this.h / 2;
-        break;
-
-      case Orientation.RO_LEFT:
         xa = this.XPosition + this.w;
         ya = this.YPosition + this.h / 2;
-        break;
-    }
+        // console.log('xa')
+        // console.log(xa)
+        // console.log('ya')
+        // console.log(ya)
  const nodesSorted=this.nodeChildren.sort((a,b)=>a.isSelected && !b.isSelected?1:-1);
     for (let k = 0; k < nodesSorted.length; k++) {
       node1 = nodesSorted[k];
 
-      switch (tree.config.iRootOrientation) {
-        case Orientation.RO_TOP:
-          xd = xc = node1.XPosition + node1.w / 2;
-          yd = node1.YPosition;
-          xb = xa;
-          switch (tree.config.iNodeJustification) {
-            case Aligment.NJ_TOP:
-              yb = yc = yd - tree.config.iLevelSeparation / 2;
-              break;
-            case Aligment.NJ_BOTTOM:
-              yb = yc = ya + tree.config.iLevelSeparation / 2;
-              break;
-            case Aligment.NJ_CENTER:
-              yb = yc = ya + (yd - ya) / 2;
-              break;
-          }
-          break;
-
-        case Orientation.RO_BOTTOM:
-          xd = xc = node1.XPosition + node1.w / 2;
-          yd = node1.YPosition + node1.h;
-          xb = xa;
-          switch (tree.config.iNodeJustification) {
-            case Aligment.NJ_TOP:
-              yb = yc = yd + tree.config.iLevelSeparation / 2;
-              break;
-            case Aligment.NJ_BOTTOM:
-              yb = yc = ya - tree.config.iLevelSeparation / 2;
-              break;
-            case Aligment.NJ_CENTER:
-              yb = yc = yd + (ya - yd) / 2;
-              break;
-          }
-          break;
-
-        case Orientation.RO_RIGHT:
-          xd = node1.XPosition + node1.w;
-          yd = yc = node1.YPosition + node1.h / 2;
-          yb = ya;
-          switch (tree.config.iNodeJustification) {
-            case Aligment.NJ_TOP:
-              xb = xc = xd + tree.config.iLevelSeparation / 2;
-              break;
-            case Aligment.NJ_BOTTOM:
-              xb = xc = xa - tree.config.iLevelSeparation / 2;
-              break;
-            case Aligment.NJ_CENTER:
-              xb = xc = xd + (xa - xd) / 2;
-              break;
-          }
-          break;
-
-        case Orientation.RO_LEFT:
+ 
           xd = node1.XPosition;
           yd = yc = node1.YPosition + node1.h / 2;
           yb = ya;
-          switch (tree.config.iNodeJustification) {
-            case Aligment.NJ_TOP:
+
               xb = xc = xd - tree.config.iLevelSeparation / 2;
-              break;
-            case Aligment.NJ_BOTTOM:
-              xb = xc = xa + tree.config.iLevelSeparation / 2;
-              break;
-            case Aligment.NJ_CENTER:
-              xb = xc = xa + (xd - xa) / 2;
-              break;
-          }
-          break;
-      }
 
-      switch (tree.config.linkType) {
-        case "M":
-          s.push(
-            "M" +
-              xa +
-              " " +
-              ya +
-              " L" +
-              xb +
-              " " +
-              yb +
-              " L" +
-              xc +
-              " " +
-              yc +
-              " L" +
-              xd +
-              " " +
-              yd
-          );
-          break;
 
-        case "B":
+      // switch (tree.config.linkType) {
+      //   case "M":
+      //     s.push(
+      //       "M" +
+      //         xa +
+      //         " " +
+      //         ya +
+      //         " L" +
+      //         xb +
+      //         " " +
+      //         yb +
+      //         " L" +
+      //         xc +
+      //         " " +
+      //         yc +
+      //         " L" +
+      //         xd +
+      //         " " +
+      //         yd
+      //     );
+      //     break;
+
+        // case "B":
           s.push(
             "M" +
               xa +
@@ -323,15 +237,13 @@ export class ECONode {
               " " +
               yd
           );
-          break;
-        case "L":
-          if (tree.config.iRootOrientation == Orientation.RO_BOTTOM) {
-            s.push("M" + xa + " " + ya + " L" + xd + " " + yd);
-          } else {
-            s.push("M" + xa + " " + ya + " L" + xd + " " + yd);
-          }
-          break;
-      }
+          // break;
+      //   case "L":
+
+      //       s.push("M" + xa + " " + ya + " L" + xd + " " + yd);
+
+      //     break;
+      // }
     }
     return s;
   }
@@ -366,8 +278,7 @@ export class ECOTree {
       iLevelSeparation: 40,
       iSiblingSeparation: 40,
       iSubtreeSeparation: 80,
-      iRootOrientation: Orientation.RO_LEFT,
-      iNodeJustification: Aligment.NJ_TOP,
+
       topXAdjustment: 0,
       topYAdjustment: 0,
       linkType: "B",
@@ -400,11 +311,6 @@ export class ECOTree {
     this.iLastSearch = 0;
   }
 
-/*  _canvasNodeClickHandler(tree, target, nodeid) {
-    if (target != nodeid) return;
-    tree.selectNode(nodeid, true);
-  }
-*/
   //Layout algorithm
   _firstWalk(tree, node, level) {
     var leftSibling = null;
@@ -421,10 +327,14 @@ export class ECOTree {
     if (node._getChildrenCount() == 0 || level == tree.config.iMaxDepth) {
       leftSibling = node._getLeftSibling();
       if (leftSibling != null)
-        node.prelim =
+        {node.prelim =
           leftSibling.prelim +
           tree._getNodeSize(leftSibling) +
           tree.config.iSiblingSeparation;
+          console.log(node.prelim)
+          console.log(node.data.id)
+          console.log(leftSibling)
+        }
       else node.prelim = 0;
     } else {
       const n = node._getChildrenCount();
@@ -515,50 +425,20 @@ export class ECOTree {
       let nodesizeTmp = 0;
       let flag = false;
 
-      switch (tree.config.iRootOrientation) {
-        case Orientation.RO_TOP:
-        case Orientation.RO_BOTTOM:
-          maxsizeTmp = tree.maxLevelHeight[level];
-          nodesizeTmp = node.h;
-          break;
 
-        case Orientation.RO_RIGHT:
-        case Orientation.RO_LEFT:
           maxsizeTmp = tree.maxLevelWidth[level];
           flag = true;
           nodesizeTmp = node.w;
-          break;
-      }
-      switch (tree.config.iNodeJustification) {
-        case Aligment.NJ_TOP:
+
           node.XPosition = xTmp;
           node.YPosition = yTmp;
-          break;
 
-        case Aligment.NJ_CENTER:
-          node.XPosition = xTmp;
-          node.YPosition = yTmp + (maxsizeTmp - nodesizeTmp) / 2;
-          break;
-
-        case Aligment.NJ_BOTTOM:
-          node.XPosition = xTmp;
-          node.YPosition = yTmp + maxsizeTmp - nodesizeTmp;
-          break;
-      }
       if (flag) {
         let swapTmp = node.XPosition;
         node.XPosition = node.YPosition;
         node.YPosition = swapTmp;
       }
-      switch (tree.config.iRootOrientation) {
-        case Orientation.RO_BOTTOM:
-          node.YPosition = -node.YPosition - nodesizeTmp;
-          break;
 
-        case Orientation.RO_RIGHT:
-          node.XPosition = -node.XPosition - nodesizeTmp;
-          break;
-      }
       if (node._getChildrenCount() != 0)
         this._secondWalk(
           tree,
@@ -579,18 +459,9 @@ export class ECOTree {
     this.previousLevelNode = [];
     this._firstWalk(this, this.root, 0);
 
-    switch (this.config.iRootOrientation) {
-      case Orientation.RO_TOP:
-      case Orientation.RO_LEFT:
         this.rootXOffset = this.config.topXAdjustment + this.root.XPosition;
         this.rootYOffset = this.config.topYAdjustment + this.root.YPosition;
-        break;
 
-      case Orientation.RO_BOTTOM:
-      case Orientation.RO_RIGHT:
-        this.rootXOffset = this.config.topXAdjustment + this.root.XPosition;
-        this.rootYOffset = this.config.topYAdjustment + this.root.YPosition;
-    }
 
     this._secondWalk(this, this.root, 0, 0, 0);
   }
@@ -613,16 +484,9 @@ export class ECOTree {
   }
 
   _getNodeSize(node) {
-    switch (this.config.iRootOrientation) {
-      case Orientation.RO_TOP:
-      case Orientation.RO_BOTTOM:
-        return node.w;
 
-      case Orientation.RO_RIGHT:
-      case Orientation.RO_LEFT:
         return node.h;
-    }
-    return 0;
+
   }
 
   _getLeftmost(node, level, maxlevel) {
@@ -639,61 +503,63 @@ export class ECOTree {
     return null;
   }
 
-  _selectNodeInt(dbindex, flagToggle) {
-    if (this.config.selectMode == Select.SL_SINGLE) {
-      if (this.iSelectedNode != dbindex && this.iSelectedNode != -1) {
-        this.nDatabaseNodes[this.iSelectedNode].isSelected = false;
-      }
-      this.iSelectedNode =
-        this.nDatabaseNodes[dbindex].isSelected && flagToggle ? -1 : dbindex;
-    }
-    this.nDatabaseNodes[dbindex].isSelected = flagToggle
-      ? !this.nDatabaseNodes[dbindex].isSelected
-      : true;
-  }
+  // _selectNodeInt(dbindex, flagToggle) {
+  //   if (this.config.selectMode == Select.SL_SINGLE) {
+  //     if (this.iSelectedNode != dbindex && this.iSelectedNode != -1) {
+  //       this.nDatabaseNodes[this.iSelectedNode].isSelected = false;
+  //     }
+  //     this.iSelectedNode =
+  //       this.nDatabaseNodes[dbindex].isSelected && flagToggle ? -1 : dbindex;
+  //   }
+  //   this.nDatabaseNodes[dbindex].isSelected = flagToggle
+  //     ? !this.nDatabaseNodes[dbindex].isSelected
+  //     : true;
+  // }
 
-  _collapseAllInt(flag) {
-    let node = null;
-    for (let n = 0; n < this.nDatabaseNodes.length; n++) {
-      node = this.nDatabaseNodes[n];
-      if (node.canCollapse) node.isCollapsed = flag;
-    }
-    this.UpdateTree();
-  }
+  // _collapseAllInt(flag) {
+  //   let node = null;
+  //   for (let n = 0; n < this.nDatabaseNodes.length; n++) {
+  //     node = this.nDatabaseNodes[n];
+  //     if (node.canCollapse) node.isCollapsed = flag;
+  //   }
+  //   this.UpdateTree();
+  // }
 
-  _selectAllInt(flag) {
-    let node = null;
-    for (let k = 0; k < this.nDatabaseNodes.length; k++) {
-      node = this.nDatabaseNodes[k];
-      node.isSelected = flag;
-    }
-    this.iSelectedNode = -1;
-    this.UpdateTree();
-  }
+  // _selectAllInt(flag) {
+  //   let node = null;
+  //   for (let k = 0; k < this.nDatabaseNodes.length; k++) {
+  //     node = this.nDatabaseNodes[k];
+  //     node.isSelected = flag;
+  //   }
+  //   this.iSelectedNode = -1;
+  //   this.UpdateTree();
+  // }
 
   // ECOTree API begins here...
 
   UpdateTree() {
     this._positionTree();
-    this.width =
-      this.config.iRootOrientation == Orientation.RO_RIGHT
-        ? Math.max(...this.nDatabaseNodes.map(x => -x.XPosition+x.w))
-        : Math.max(...this.nDatabaseNodes.map(x => x.XPosition + x.w));
-    this.height =
-      this.config.iRootOrientation == Orientation.RO_BOTTOM
-        ? Math.max(...this.nDatabaseNodes.map(x => -x.YPosition+x.h))
-        : Math.max(...this.nDatabaseNodes.map(x => x.YPosition + x.h));
+    this.config = {
+      iMaxDepth: 100,
+      iLevelSeparation: 40,
+      iSiblingSeparation: -40,
+      iSubtreeSeparation: 80,
 
-    if (this.config.iRootOrientation == Orientation.RO_BOTTOM) {
-      this.nDatabaseNodes.forEach(x => {
-        x.YPosition = x.YPosition + this.height;
-      });
-    }
-    if (this.config.iRootOrientation == Orientation.RO_RIGHT) {
-      this.nDatabaseNodes.forEach(x => {
-        x.XPosition = x.XPosition + this.width;
-      });
-    }
+      topXAdjustment: 0,
+      topYAdjustment: 0,
+      linkType: "B",
+      nodeColor: "#333",
+      nodeBorderColor: "white",
+      nodeSelColor: "#FFFFCC",
+      useTarget: true,
+      searchMode: Search.SM_DSC,
+      selectMode: Select.SL_MULTIPLE,
+      defaultNodeWidth: 80,
+      defaultNodeHeight: 40,
+    };
+
+    this.width = Math.max(...this.nDatabaseNodes.map(x => x.XPosition + x.w));
+    this.height = Math.max(...this.nDatabaseNodes.map(x => x.YPosition + x.h));
   }
 
   add(id, pid, dsc, w, h, c, bc, lc, meta,selected=false) {
@@ -727,117 +593,111 @@ export class ECOTree {
     pnode.nodeChildren[h] = node;
   };
 
-  searchNodes(str) {
-    let node = null;
-    const m = this.config.searchMode;
-    const sm = this.config.selectMode == Select.SL_SINGLE;
+  // searchNodes(str) {
+  //   let node = null;
+  //   const m = this.config.searchMode;
+  //   const sm = this.config.selectMode == Select.SL_SINGLE;
 
-    if (typeof str == "undefined") return;
-    if (str == "") return;
+  //   if (typeof str == "undefined") return;
+  //   if (str == "") return;
 
-    let found = false;
-    let n = sm ? this.iLastSearch : 0;
-    if (n == this.nDatabaseNodes.length) n = this.iLastSearch = 0;
+  //   let found = false;
+  //   let n = sm ? this.iLastSearch : 0;
+  //   if (n == this.nDatabaseNodes.length) n = this.iLastSearch = 0;
 
-    str = str.toLocaleUpperCase();
+  //   str = str.toLocaleUpperCase();
 
-    for (; n < this.nDatabaseNodes.length; n++) {
-      node = this.nDatabaseNodes[n];
-      if (
-        node.dsc.toLocaleUpperCase().indexOf(str) != -1 &&
-        (m == Search.SM_DSC || m == Search.SM_BOTH)
-      ) {
-        node._setAncestorsExpanded();
-        this._selectNodeInt(node.dbIndex, false);
-        found = true;
-      }
-      if (
-        node.meta.toLocaleUpperCase().indexOf(str) != -1 &&
-        (m == Search.SM_META || m == Search.SM_BOTH)
-      ) {
-        node._setAncestorsExpanded();
-        this._selectNodeInt(node.dbIndex, false);
-        found = true;
-      }
-      if (sm && found) {
-        this.iLastSearch = n + 1;
-        break;
-      }
-    }
-    this.UpdateTree();
-  }
+  //   for (; n < this.nDatabaseNodes.length; n++) {
+  //     node = this.nDatabaseNodes[n];
+  //     if (
+  //       node.dsc.toLocaleUpperCase().indexOf(str) != -1 &&
+  //       (m == Search.SM_DSC || m == Search.SM_BOTH)
+  //     ) {
+  //       node._setAncestorsExpanded();
+  //       this._selectNodeInt(node.dbIndex, false);
+  //       found = true;
+  //     }
+  //     if (
+  //       node.meta.toLocaleUpperCase().indexOf(str) != -1 &&
+  //       (m == Search.SM_META || m == Search.SM_BOTH)
+  //     ) {
+  //       node._setAncestorsExpanded();
+  //       this._selectNodeInt(node.dbIndex, false);
+  //       found = true;
+  //     }
+  //     if (sm && found) {
+  //       this.iLastSearch = n + 1;
+  //       break;
+  //     }
+  //   }
+  //   this.UpdateTree();
+  // }
 
-  selectAll() {
-    if (this.config.selectMode != Select.SL_MULTIPLE) return;
-    this._selectAllInt(true);
-  }
+//   selectAll() {
+//     if (this.config.selectMode != Select.SL_MULTIPLE) return;
+//     this._selectAllInt(true);
+//   }
 
-  unselectAll() {
-    this._selectAllInt(false);
-  }
+//   unselectAll() {
+//     this._selectAllInt(false);
+//   }
 
-  collapseAll() {
-    this._collapseAllInt(true);
-  }
+//   collapseAll() {
+//     this._collapseAllInt(true);
+//   }
 
-  expandAll() {
-    this._collapseAllInt(false);
-  }
+//   expandAll() {
+//     this._collapseAllInt(false);
+//   }
 
-  collapseNode(nodeid, upd) {
-    const dbindex = this.mapIDs[nodeid];
-    this.nDatabaseNodes[dbindex].isCollapsed = !this.nDatabaseNodes[dbindex]
-      .isCollapsed;
-    if (upd) this.UpdateTree();
-  }
+//   collapseNode(nodeid, upd) {
+//     const dbindex = this.mapIDs[nodeid];
+//     this.nDatabaseNodes[dbindex].isCollapsed = !this.nDatabaseNodes[dbindex]
+//       .isCollapsed;
+//     if (upd) this.UpdateTree();
+//   }
 
-  selectNode(nodeid, upd) {
-    this._selectNodeInt(this.mapIDs[nodeid], true);
-    if (upd) this.UpdateTree();
-  }
+//   selectNode(nodeid, upd) {
+//     this._selectNodeInt(this.mapIDs[nodeid], true);
+//     if (upd) this.UpdateTree();
+//   }
 
-  setNodeTitle(nodeid, title, upd) {
-    const dbindex = this.mapIDs[nodeid];
-    this.nDatabaseNodes[dbindex].dsc = title;
-    if (upd) this.UpdateTree();
-  }
+//   setNodeTitle(nodeid, title, upd) {
+//     const dbindex = this.mapIDs[nodeid];
+//     this.nDatabaseNodes[dbindex].dsc = title;
+//     if (upd) this.UpdateTree();
+//   }
 
-  setNodeMetadata(nodeid, meta, upd) {
-    const dbindex = this.mapIDs[nodeid];
-    this.nDatabaseNodes[dbindex].meta = meta;
-    if (upd) this.UpdateTree();
-  }
+//   setNodeMetadata(nodeid, meta, upd) {
+//     const dbindex = this.mapIDs[nodeid];
+//     this.nDatabaseNodes[dbindex].meta = meta;
+//     if (upd) this.UpdateTree();
+//   }
 
-/*
-  setNodeTarget(nodeid, target, upd) {
-    const dbindex = this.mapIDs[nodeid];
-    this.nDatabaseNodes[dbindex].target = target;
-    if (upd) this.UpdateTree();
-  }
-*/
-  setNodeColors(nodeid, color, border, upd) {
-    const dbindex = this.mapIDs[nodeid];
-    if (color) this.nDatabaseNodes[dbindex].c = color;
-    if (border) this.nDatabaseNodes[dbindex].bc = border;
-    if (upd) this.UpdateTree();
-  }
 
-  getSelectedNodes() {
-    let node = null;
-    const selection = [];
-    let selnode = null;
+//   setNodeColors(nodeid, color, border, upd) {
+//     const dbindex = this.mapIDs[nodeid];
+//     if (color) this.nDatabaseNodes[dbindex].c = color;
+//     if (border) this.nDatabaseNodes[dbindex].bc = border;
+//     if (upd) this.UpdateTree();
+//   }
 
-    for (let n = 0; n < this.nDatabaseNodes.length; n++) {
-      node = this.nDatabaseNodes[n];
-      if (node.isSelected) {
-        selnode = {
-          id: node.id,
-          dsc: node.dsc,
-          meta: node.meta
-        };
-        selection[selection.length] = selnode;
-      }
-    }
-    return selection;
-  }
+//   getSelectedNodes() {
+//     let node = null;
+//     const selection = [];
+//     let selnode = null;
+
+//     for (let n = 0; n < this.nDatabaseNodes.length; n++) {
+//       node = this.nDatabaseNodes[n];
+//       if (node.isSelected) {
+//         selnode = {
+//           id: node.id,
+//           dsc: node.dsc,
+//           meta: node.meta
+//         };
+//         selection[selection.length] = selnode;
+//       }
+//     }
+//     return selection;
+//   }
 }
