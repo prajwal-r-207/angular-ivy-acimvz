@@ -38,26 +38,40 @@ export class TreeViewComponent {
     }
   }
   onClick(node: any, tree: ECOTree) {
-    console.log(node);
-    this.expand = !this.expand;
+    console.log(node.isCollapsed);
+    console.log('is ancestor collapsed')
+    console.log(node._isAncestorCollapsed())
+    node.isCollapsed = !node.isCollapsed
+    // tree.width =242 ;
+    // tree.height = 5;
   }
   @Input() template: TemplateRef<any>;
   @Input() set data(value) {
-    // console.log('value')
-    // console.log(value)
-    this.addNodes(this.tree, value);
-    this.tree.UpdateTree();
+    console.log('value')
+    console.log(value)
+    // console.log(this.tree)
+    // for
+    value.forEach((x)=>{
+      let tree  = new ECOTree();
+    this.addNodes(tree, x);
+    tree.UpdateTree()
+    this.treeArray.push(tree)
+    console.log(this.treeArray)
+    })
+    
+    // console.log(this.treeArray)
   }
   // update() {
   //   this.tree.UpdateTree();
   // }
-  get config() {
-    return this.tree.config;
-  }
-  get nodes() {
-    return this.tree.nDatabaseNodes;
-  }
-  tree: ECOTree = new ECOTree();
+  // get config() {
+  //   return this.tree.config;
+  // }
+  // get nodes() {
+  //   return this.tree.nDatabaseNodes;
+  // }
+  
+  treeArray:ECOTree[]=[];
 
   
   // getChildren(node:ECONode,nodes:ECONode[]=[])
@@ -98,7 +112,6 @@ export class TreeViewComponent {
     node.height = node.height || parent.height;
     node.color = node.color || parent.color;
     node.background = node.background || parent.background;
-    node.linkColor = node.linkColor || parent.linkColor;
     node.id = tree.nDatabaseNodes.length;
     tree.add(
       node.id,
@@ -108,7 +121,6 @@ export class TreeViewComponent {
       node.height,
       node.color,
       node.background,
-      node.linkColor,
       node.data,
       node.selected
     );

@@ -12,32 +12,60 @@ export class AppComponent {
 
   data: IECONode = {
     data: { id: `data1 (3)` },
-    selected: true,
+
     children: [
       {
         data: { id: 1 },
-        selected: true,
       },
-      { data: { id: '2' }, selected: true },
+      { data: { id: '2' } },
       {
         data: { id: 3 },
-        selected: true
       },
     ],
   };
   data2: IECONode = {
     data: { id: `data2 (2)` },
-    selected: true,
     children: [
       {
-        data: { id: 4 },
-        selected: true,
+        data: { id: 1 }
       },
-      { data: { id: 5 }, selected: true },
+      { data: { id: 2 }},
+    ],
+  };
+  data3: IECONode = {
+    data: { id: `data3 (4)` },
+    children: [
+      {
+        data: { id: 1 }
+      },
+      { data: { id: 2 }},
+      { data: { id: 3 }},
+      { data: { id: 4 }},
+    ],
+  };
+  data4: IECONode = {
+    data: { id: `data4 (5)` },
+    children: [
+      {
+        data: { id: 1 }
+      },
+      { data: { id: 2 }},
+      { data: { id: 3 }},
+      { data: { id: 4 }},
+      { data: { id: 5 }},
+    ],
+  };
+  data5: IECONode = {
+    data: { id: `data5 (1)` },
+    children: [
+      {
+        data: { id: 1 }
+      },
+
     ],
   };
   
-  dataArray:IECONode[] = [this.data,this.data2]
+  dataArray:IECONode[] = [this.data,this.data2,this.data3,this.data4,this.data5]
   // selectSlibingNodes(treeView: TreeViewComponent, node: ECONode) {
   //   console.log(treeView)
   //   console.log(node)
