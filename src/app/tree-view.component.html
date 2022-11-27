@@ -16,7 +16,7 @@
     </div>
   </ng-container>
   <ng-container *ngFor="let node of tree.nDatabaseNodes;let i=index">
-    <div *ngIf="!hasChildren(node) && node.isCollapsed" 
+    <div *ngIf="!hasChildren(node) && node._isAncestorCollapsed()"
       [ngStyle]="{position:'absolute',left:node.XPosition+'px',top:node.YPosition+'px',width:node.w+'px',height:node.h+'px'}">
       <ng-container *ngTemplateOutlet="defaultTemplate;context:{$implicit:node}" ></ng-container>
     </div>

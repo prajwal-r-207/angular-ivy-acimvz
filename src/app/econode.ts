@@ -269,7 +269,7 @@ export class ECOTree {
     this.config = {
       iMaxDepth: 100,
       iLevelSeparation: 40,
-      iSiblingSeparation: 5,
+      iSiblingSeparation: 20,
       iSubtreeSeparation: 80,
 
       topXAdjustment: 0,

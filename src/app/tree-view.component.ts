@@ -42,6 +42,11 @@ export class TreeViewComponent {
     console.log('is ancestor collapsed')
     console.log(node._isAncestorCollapsed())
     node.isCollapsed = !node.isCollapsed
+    // this.treeArray[0].height = 80
+    // this.treeArray[1].height = 10
+    // this.treeArray[2].height = 40
+    // this.treeArray[3].height = 150
+    // this.treeArray[4].height = 100
     // tree.width =242 ;
     // tree.height = 5;
   }
