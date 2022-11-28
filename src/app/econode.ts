@@ -268,9 +268,9 @@ export class ECOTree {
   constructor() {
     this.config = {
       iMaxDepth: 100,
-      iLevelSeparation: 40,
+      iLevelSeparation: 100,
       iSiblingSeparation: 20,
-      iSubtreeSeparation: 80,
+      iSubtreeSeparation: 40,
 
       topXAdjustment: 0,
       topYAdjustment: 0,
@@ -281,7 +281,7 @@ export class ECOTree {
       useTarget: true,
       searchMode: Search.SM_DSC,
       selectMode: Select.SL_MULTIPLE,
-      defaultNodeWidth: 80,
+      defaultNodeWidth: 160,
       defaultNodeHeight: 40,
     };
 

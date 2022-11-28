@@ -9,11 +9,17 @@
       </ng-container>
   </ng-container>
   </svg>
-  <ng-container *ngFor="let node of tree.nDatabaseNodes;let i=index">
+  <!-- <ng-container *ngFor="let node of tree.nDatabaseNodes;let i=index">
     <div *ngIf="hasChildren(node)" (click)="onClick(node,tree)"
       [ngStyle]="{position:'absolute',left:node.XPosition+'px',top:node.YPosition+'px',width:node.w+'px',height:node.h+'px',cursor:'pointer'}">
       <ng-container *ngTemplateOutlet="defaultTemplate;context:{$implicit:node}" ></ng-container>
     </div>
+  </ng-container> -->
+  <ng-container *ngFor="let node of tree.nDatabaseNodes;let i=index">
+    <button *ngIf="hasChildren(node)" (click)="onClick(node,tree)"
+      [ngStyle]="{position:'absolute',left:node.XPosition+'px',top:node.YPosition+'px',width:node.w+'px',height:node.h+'px',cursor:'pointer'}">
+      {{node.data.id}}
+    </button>
   </ng-container>
   <ng-container *ngFor="let node of tree.nDatabaseNodes;let i=index">
     <div *ngIf="!hasChildren(node) && node._isAncestorCollapsed()"
